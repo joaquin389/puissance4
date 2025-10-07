@@ -1,0 +1,29 @@
+{{define "information"}}
+{{range .}}
+{{ if or (gt .Age 50) (eq .Firstname "stephane") }}
+    <div class="goodinformations">
+        <div class="lastname">
+            {{.Lastname}}
+        </div>
+        <div class="firstname">
+            {{.Firstname}}
+        </div>
+        <div class="age">
+            {{.Age}}
+        </div>
+    </div>
+{{ else }}
+    <div class="badinformations">
+        <div class="lastname">
+            {{.Lastname}}
+        </div>
+        <div class="firstname">
+            {{.Firstname}}
+        </div>
+        <div class="age">
+            {{.Age}}
+        </div>
+    </div>
+{{end}}
+{{end}}
+{{end}}
