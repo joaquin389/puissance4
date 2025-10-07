@@ -8,9 +8,6 @@ import (
 
 type student struct {
 	name  string
-	age   string
-	Quote string
-	Hobby string
 }
 
 type Information struct {

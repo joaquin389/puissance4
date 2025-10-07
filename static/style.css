@@ -1,61 +1,297 @@
+/* 🌞 Mode clair par défaut */
+body {
+  background-color: white;
+  color: black;
+  font-family: Inter, -apple-system, system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
+  transition: background-color 0.4s, color 0.4s;
+  margin: 0;
+  padding: 0;
+}
+
+/* 🌙 Mode sombre activé par le switch */
+body:has(#checkbox:checked) {
+  background-color: #121212;
+  color: #f0f0f0;
+}
+
+/* 🔲 Header container */
+.header-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 1em 0;
+  background-color: #f0f0f0;
+}
+
+body:has(#checkbox:checked) .header-container {
+  background-color: #1a1a1a;
+}
+
+/* 🧩 Header box */
+.header-box {
+  width: 90%;
+  max-width: 1000px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1em 2em;
+  transition: background-color 0.4s, color 0.4s;
+}
+
+body:has(#checkbox:checked) .header-box {
+  background-color: #2a2a2a;
+  color: #f0f0f0;
+}
+
+/* 🧭 Header layout */
+.header-left, .header-center, .header-right {
+  display: flex;
+  align-items: center;
+}
+
+.header-left { flex: 1; }
+.header-center { flex: 2; justify-content: center; }
+.header-right { flex: 1; justify-content: flex-end; gap: 1em; }
+
+/* 🖼️ Logo */
+.logo-img {
+  height: 40px;
+  object-fit: contain;
+}
+
+.game-title {
+  font-size: 1.8em;
+  font-weight: bold;
+}
+
+/* 👤 Nom utilisateur */
+.player-name {
+  font-size: 1em;
+  font-weight: 500;
+}
+
+/* 🌟 Switch animé */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 4em;
+  height: 2.2em;
+  border-radius: 30px;
+  font-size: 17px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #2a2a2a;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.4s;
+  overflow: hidden;
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  height: 1.2em;
+  width: 1.2em;
+  left: 0.5em;
+  bottom: 0.5em;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s cubic-bezier(0.81, -0.04, 0.38, 1.5);
+  box-shadow: inset 8px -4px 0px 0px #fff;
+}
+
+input:checked + .slider {
+  background-color: #00a6ff;
+}
+
+input:checked + .slider::before {
+  transform: translateX(1.8em);
+  box-shadow: inset 15px -4px 0px 15px #ffcf48;
+}
+
+/* ✨ Étoiles */
+.star {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: opacity 0.4s;
+}
+
+.star_1 { left: 2.5em; top: 0.5em; }
+.star_2 { left: 2.2em; top: 1.2em; }
+.star_3 { left: 3em; top: 0.9em; }
+
+.switch input:checked ~ .slider .star {
+  opacity: 0;
+}
+
+/* ☁️ Nuage */
+.cloud {
+  position: absolute;
+  width: 3.5em;
+  bottom: -1.4em;
+  left: -1.1em;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.switch input:checked ~ .slider .cloud {
+  opacity: 1;
+}
+
+/* 🟥 Titres et messages */
 h1 {
-    color: rgb(255, 0, 0);
-    text-align: center; 
+  color: red;
+  text-align: center;
 }
 
 .header-title {
-    font-size: 2.5em;
-    margin: 20px 0;
+  font-size: 2.5em;
+  margin: 20px 0;
 }
 
-.title2 {
-    font-size: 1.8em;
-    text-align: center;
-    margin-top: 40px;
+.title2, .title3 {
+  font-size: 1.8em;
+  text-align: center;
+  margin-top: 40px;
 }
 
-.explication {
-    font-size: 1.2em;
-    text-align: center;
-    margin: 20px 0;
+.explication, .goodinformations, .badinformations {
+  font-size: 1.2em;
+  text-align: center;
+  margin: 20px 0;
 }
 
+.goodinformations { color: green; }
+.badinformations { color: red; }
+
+/* 🔘 Bouton principal */
 .button-42 {
   background-image: linear-gradient(-180deg, #FF7E31, #E62C03);
   border-radius: 6px;
   box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
-  color: #FFFFFF;
+  color: #fff;
   cursor: pointer;
-  font-family: Inter,-apple-system,system-ui,Roboto,"Helvetica Neue",Arial,sans-serif;
   padding: 10px 20px;
   text-decoration: none;
   display: block;
   margin: 0 auto;
   width: fit-content;
   text-align: center;
-  transition: box-shadow .2s;
+  transition: box-shadow 0.2s;
 }
 
 .button-42:hover {
   box-shadow: rgba(253, 76, 0, 0.5) 0 3px 8px;
 }
 
-.goodinformations {
-    font-size: 1.2em;
-    text-align: center;
-    margin: 20px 0;
-    color: green;
+.logo-img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  display: block;
 }
 
-.title3 {
-    font-size: 1.8em;
-    text-align: center;
-    margin-top: 40px;
+.header-left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 60px;
 }
 
-.badinformations {
-    font-size: 1.2em;
-    text-align: center;
-    margin: 20px 0;
-    color: red;
+body:has(#checkbox:checked) .header-box,
+body:has(#checkbox:checked) .main-container,
+body:has(#checkbox:checked) .content-box {
+  background-color: #1e1e1e;
+  color: #f0f0f0;
+}
+
+.main-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2em;
+  box-sizing: border-box;
+}
+
+body:has(#checkbox:checked) .main-container {
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.logo-img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  background-color: transparent;
+  padding: 4px;
+  border-radius: 8px;
+}
+
+body:has(#checkbox:checked) .logo-img {
+  background-color: #2a2a2a;
+}
+
+body:has(#checkbox:checked) .main-container {
+  background-color: #1e1e1e; /* fond sombre */
+  color: #f0f0f0;            /* texte clair */
+  border-radius: 12px;       /* garde les coins arrondis */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.05); /* ombre douce en dark mode */
+}
+
+.logo-img {
+  background-color: transparent;
+  padding: 4px;
+  border-radius: 8px;
+  display: block;
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+
+.logo-img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  padding: 4px;
+  border-radius: 8px;
+  background-color: transparent;
+}
+
+/* 🌙 Alternative JS-friendly */
+body.dark {
+  background-color: #121212;
+  color: #f0f0f0;
+}
+
+body.dark .header-container {
+  background-color: #1a1a1a;
+}
+
+body.dark .header-box {
+  background-color: #2a2a2a;
+  color: #f0f0f0;
+}
+
+body.dark .main-container {
+  background-color: #1e1e1e;
+  color: #f0f0f0;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
 }
