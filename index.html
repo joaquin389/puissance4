@@ -4,16 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./static/style.css">
-    <title>puissance 4</title>
+    <title>Puissance 4</title>
 </head>
 
 <body>
     {{template "header"}}
-    <main>
-        <h2 class="title2">Bienvenue au jeu du puissance 4</h2>
-        <p class="explication">Cliquez sur "Jouer" pour commencer une nouvelle partie.</p>
-        <a class="button-42" role="button" href="/infos">Jouer</a>
+
+    <main class="main-container">
+        <h2 class="title2">Bienvenue dans Power4 Web</h2>
+        <p class="explication">Entrez les noms des joueurs et choisissez la difficulté pour commencer la partie.</p>
+
+        <form action="/infos" method="post">
+            <label for="name1">premier joueur</label><br>
+            <textarea id="name1" name="name1"></textarea><br>
+            <label for="name2">deuxième joueur</label><br>
+            <textarea id="name2" name="name2"></textarea><br>
+
+            <label for="difficulty">Difficulté :</label><br>
+            <select id="difficulty" name="difficulty" required>
+                <option value="" disabled selected>Choisissez une difficulté</option>
+                <option value="1">Facile (6×7)</option>
+                <option value="2">Moyen (6×9)</option>
+                <option value="3">Difficile (7×8)</option>
+            </select><br><br>
+
+            <button class="button-42" type="submit">Commencer la partie</button>
+        </form>
     </main>
+
     {{template "footer"}}
     <script src="/static/darkmode.js"></script>
 </body>

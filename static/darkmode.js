@@ -31,3 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("darkMode", checkbox.checked);
   });
 });
+
+// avec cookie
+// variable de page en page
