@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Puissance 4 - Partie</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  {{template "header" .}}
+  <main>
+    {{if eq .Winner 0}}
+      <form method="POST" action="/play">
+    <div id="grid" class="grid-{{.Rows}}x{{.Cols}}">
+      {{range $r, $row := .Grid}}
+        {{range $c, $cell := $row}}
+          <button name="col" value="{{$c}}" class="cell {{if eq $cell 1}}red{{else if eq $cell 2}}yellow{{end}}"></button>
+        {{end}}
+      {{end}}
+    </div>
+      </form>
+      <p>Tour de {{if eq .Turn 1}}{{.Player1}}{{else}}{{.Player2}}{{end}}</p>
+    {{else}}
+      <h2>🎉 Victoire de {{if eq .Winner 1}}{{.Player1}}{{else}}{{.Player2}}{{end}} !</h2>
+      <form method="POST" action="/reset">
+        <button class="reset">Rejouer</button>
+      </form>
+    {{end}}
+  </main>
+  {{template "footer" .}}
+</body>
+</html>

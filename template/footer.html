@@ -1,7 +1,10 @@
 {{define "footer"}}
-
-<footer>
-    <a class="button-42" role="button" href="/">retour</a>
+  <footer class="main-footer">
+  <form method="POST" action="/reset" style="display:inline;">
+    <button class="footer-btn">🔄 Rejouer</button>
+  </form>
+  <form method="GET" action="/" style="display:inline;">
+    <button class="footer-btn">🏠 Accueil</button>
+  </form>
 </footer>
-
 {{end}}
