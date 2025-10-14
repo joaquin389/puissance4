@@ -9,7 +9,7 @@
   {{template "header" .}}
   <main>
     {{if eq .Winner 0}}
-      <form method="POST" action="/play">
+      <form method="POST" action="/game">
     <div id="grid" class="grid-{{.Rows}}x{{.Cols}}">
       {{range $r, $row := .Grid}}
         {{range $c, $cell := $row}}
@@ -23,6 +23,10 @@
       <h2>🎉 Victoire de {{if eq .Winner 1}}{{.Player1}}{{else}}{{.Player2}}{{end}} !</h2>
       <form method="POST" action="/reset">
         <button class="reset">Rejouer</button>
+      </form>
+
+      <form method="POST" action="/change" style="display:inline;">
+        <button class="footer-btn">🔁 Change</button>
       </form>
     {{end}}
   </main>

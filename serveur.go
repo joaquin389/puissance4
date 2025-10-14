@@ -7,19 +7,30 @@ import (
 )
 
 type Game struct {
-    Grid     [][]int
-    Turn     int
-    Winner   int
-    Player1  string
-    Player2  string
-    Rows     int
-    Cols     int
-    Difficulty string
+    Grid         [][]int
+    Turn         int
+    Winner       int
+    Player1      string
+    Player2      string
+    Rows         int
+    Cols         int
+    Difficulty   string
+    CurrentRoute string
 }
 
 var game *Game
-var tmplPlay = template.Must(template.ParseFiles("play.html"))
-var tmplHome = template.Must(template.ParseFiles("home.html"))
+
+var tmplGame = template.Must(template.ParseFiles(
+    "game.html",
+    "template/header.html",
+    "template/footer.html",
+))
+
+var tmplHome = template.Must(template.ParseFiles(
+    "index.html",
+    "template/header.html",
+    "template/footer.html",
+))
 
 func NewGame(rows, cols int, p1, p2, difficulty string) *Game {
     grid := make([][]int, rows)
@@ -27,10 +38,15 @@ func NewGame(rows, cols int, p1, p2, difficulty string) *Game {
         grid[i] = make([]int, cols)
     }
     return &Game{
-        Grid: grid, Turn: 1, Winner: 0,
-        Player1: p1, Player2: p2,
-        Rows: rows, Cols: cols,
-        Difficulty: difficulty,
+        Grid:         grid,
+        Turn:         1,
+        Winner:       0,
+        Player1:      p1,
+        Player2:      p2,
+        Rows:         rows,
+        Cols:         cols,
+        Difficulty:   difficulty,
+        CurrentRoute: "/game",
     }
 }
 
@@ -106,25 +122,37 @@ func main() {
                 rows, cols = 6, 7
             }
             game = NewGame(rows, cols, p1, p2, diff)
-            http.Redirect(w, r, "/play", http.StatusSeeOther)
+            http.Redirect(w, r, "/game", http.StatusSeeOther)
             return
         }
-        tmplHome.Execute(w, nil)
+        tmplHome.Execute(w, &Game{CurrentRoute: "/"})
     })
 
-    http.HandleFunc("/play", func(w http.ResponseWriter, r *http.Request) {
+    http.HandleFunc("/game", func(w http.ResponseWriter, r *http.Request) {
         if r.Method == "POST" {
             colStr := r.FormValue("col")
             col, _ := strconv.Atoi(colStr)
             game.Play(col)
-            http.Redirect(w, r, "/play", http.StatusSeeOther)
+            http.Redirect(w, r, "/game", http.StatusSeeOther)
             return
         }
-        tmplPlay.Execute(w, game)
+        game.CurrentRoute = "/game"
+        tmplGame.Execute(w, game)
     })
 
     http.HandleFunc("/reset", func(w http.ResponseWriter, r *http.Request) {
-        http.Redirect(w, r, "/", http.StatusSeeOther)
+        if game != nil {
+            game = NewGame(game.Rows, game.Cols, game.Player1, game.Player2, game.Difficulty)
+        }
+        http.Redirect(w, r, "/game", http.StatusSeeOther)
+    })
+
+    http.HandleFunc("/change", func(w http.ResponseWriter, r *http.Request) {
+        if game != nil {
+            game.Player1, game.Player2 = game.Player2, game.Player1
+            game = NewGame(game.Rows, game.Cols, game.Player1, game.Player2, game.Difficulty)
+        }
+        http.Redirect(w, r, "/game", http.StatusSeeOther)
     })
 
     http.ListenAndServe(":8080", nil)
