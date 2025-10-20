@@ -21,13 +21,13 @@
       </form>
       <p>Tour de {{if eq .Turn 1}}{{.Player1}}{{else}}{{.Player2}}{{end}}</p>
     {{else}}
-      <h2>🎉 Victoire de {{if eq .Winner 1}}{{.Player1}}{{else}}{{.Player2}}{{end}} !</h2>
+      <h2>Victoire de {{if eq .Winner 1}}{{.Player1}}{{else}}{{.Player2}}{{end}} !</h2>
       <form method="POST" action="/reset">
         <button class="reset">Rejouer</button>
       </form>
 
       <form method="POST" action="/change" style="display:inline;">
-        <button class="footer-btn">🔁 Change</button>
+        <button class="footer-btn">changer</button>
       </form>
     {{end}}
   </main>
